@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>bg.png</Source>
+      <Name>bg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\bg.xnb</Output>
+      <Time>2011-08-16T21:29:14.0796042-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Can.png</Source>
+      <Name>Can</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Can.xnb</Output>
+      <Time>2011-08-19T19:59:31.2068523-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Stand.png</Source>
+      <Name>Stand</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Stand.xnb</Output>
+      <Time>2011-08-16T21:29:39.1676854-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Gun.png</Source>
+      <Name>Gun</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Gun.xnb</Output>
+      <Time>2011-08-16T21:30:35.3921086-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Ammo.png</Source>
+      <Name>Ammo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Ammo.xnb</Output>
+      <Time>2011-08-16T21:32:27.6129451-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Courier New.spritefont</Source>
+      <Name>Courier New</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Courier New.xnb</Output>
+      <Time>2011-08-17T22:53:00.6010995-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Glow.png</Source>
+      <Name>Glow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Glow.xnb</Output>
+      <Time>2011-08-18T12:36:03.4989369-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot2.wav</Source>
+      <Name>shot2</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\shot2.xnb</Output>
+      <Time>2011-08-18T14:33:32.265724-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot1.wav</Source>
+      <Name>shot1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\shot1.xnb</Output>
+      <Time>2011-08-18T14:44:05.1900018-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Segoe UI Mono.spritefont</Source>
+      <Name>Segoe UI Mono</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Segoe UI Mono.xnb</Output>
+      <Time>2011-08-18T15:47:19.0655108-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Win-Graphic.png</Source>
+      <Name>Win-Graphic</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Win-Graphic.xnb</Output>
+      <Time>2011-08-18T16:08:51.9812331-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Lose-Graphic.png</Source>
+      <Name>Lose-Graphic</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Lose-Graphic.xnb</Output>
+      <Time>2011-08-18T16:08:58.6035185-04:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can ShooterContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can ShooterContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2011-08-16T19:12:53.514037-04:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

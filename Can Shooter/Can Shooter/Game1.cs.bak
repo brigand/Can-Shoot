@@ -1,0 +1,478 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Bagnardi.Game;
+using InputManagement;
+
+namespace Can_Shooter
+{
+    /// <summary>
+    /// This is the main type for your game
+    /// </summary>
+    public class Game1 : Microsoft.Xna.Framework.Game
+    {
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
+
+        // Textures
+        Texture2D texAmmo;
+        Texture2D texBg;
+        Texture2D texCan;
+        Texture2D texGun;
+        Texture2D texStand;
+        Texture2D texTarget;
+        Texture2D texWin;
+        Texture2D texLose;
+
+        // Vectors for data used in rendering
+        Vector2 posGun;
+        Rectangle drawGun;
+        float angleGun;
+        Rectangle posBg;
+        Rectangle posStand;
+        Rectangle posTarget;
+        Rectangle posWinLose;
+        Rectangle posCan;
+        Color canColor;
+
+        // User input device states
+        KeyboardState PreviousKeyboardState;
+        //GamePadState PreviousPadState;
+        
+
+        // Fonts
+        SpriteFont debugFont;
+        SpriteFont scoreFont;
+
+        // Sound effects
+        SoundEffect shot1;
+        SoundEffect shot2;
+
+        // Game values
+        byte ammoCount;
+        byte score;
+        GameStatus gameStatus;
+        byte level;
+        Random rand = new Random();
+        Direction hueDirection;
+        double hueFade;
+
+        // Used in Level2 code
+        Direction canDir;
+
+        enum Direction
+        {
+            Left,
+            Right
+        }
+
+
+
+        enum GameStatus
+        {
+            Playing,
+            Win,
+            Loss
+        }
+
+        public Game1()
+        {
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            //graphics.IsFullScreen = true;
+
+            level = 1;
+        }
+
+        /// <summary>
+        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// This is where it can query for any required services and load any non-graphic
+        /// related content.  Calling base.Initialize will enumerate through any components
+        /// and initialize them as well.
+        /// </summary>
+        protected override void Initialize()
+        {
+            ammoCount = 11;
+            score = 0;
+            gameStatus = GameStatus.Playing;
+
+            posWinLose = Rectangle.Empty;
+
+            NewRound();
+
+            // Get the keyboard and gamepad states for use in the first Update call
+            PreviousKeyboardState = Keyboard.GetState();
+            PreviousPadState = GamePad.GetState(PlayerIndex.One);
+
+            hueDirection = Direction.Right;
+            hueFade = rand.NextDouble();
+
+            base.Initialize();
+        }
+
+        /// <summary>
+        /// Start a new round of gameplay.  This can be used in Initialize and
+        /// after a shot is fired to move the elements around.
+        /// </summary>
+        private void NewRound()
+        {
+            int maxWidth = graphics.GraphicsDevice.Viewport.Width;
+            int maxHeight = graphics.GraphicsDevice.Viewport.Height;
+
+            posBg = new Rectangle(-10, -10, maxWidth + 10, maxHeight + 10);
+            posGun = new Vector2();
+            posStand = new Rectangle(30, maxHeight / 10 * 6, maxWidth + 30, maxHeight / 10 * 4);
+            posCan = new Rectangle(0, 0, maxWidth / 20, maxHeight / 10);
+            posTarget = Rectangle.Empty;
+
+            posCan.X = rand.Next(maxWidth * 20 / 100, maxWidth * 80 / 100);
+            posCan.Y = rand.Next(posStand.Y, posStand.Y + 15);
+            posGun.X = rand.Next(maxWidth * 30 / 100, maxWidth * 70 / 100);
+            posGun.Y = maxHeight * 105 / 100;
+
+            angleGun = rand.Next(-50, 50);
+
+            double hue = rand.NextDouble();
+            
+            canColor = GameHelper.HSLColor(hue, 1.0, 0.5);
+            canDir = Direction.Right;
+        }
+
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
+        protected override void LoadContent()
+        {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            texAmmo = Content.Load<Texture2D>("Ammo");
+            texBg = Content.Load<Texture2D>("bg");
+            texCan = Content.Load<Texture2D>("Can");
+            texGun = Content.Load<Texture2D>("Gun");
+            texStand = Content.Load<Texture2D>("Stand");
+            texTarget = Content.Load<Texture2D>("Glow");
+            texWin = Content.Load<Texture2D>("Win-Graphic");
+            texLose = Content.Load<Texture2D>("Lose-Graphic");
+
+
+            debugFont = Content.Load<SpriteFont>("Courier New");
+            scoreFont = Content.Load<SpriteFont>("Segoe UI Mono");
+
+            shot1 = Content.Load<SoundEffect>("shot1");
+            shot2 = Content.Load<SoundEffect>("shot2");
+
+        }
+
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// all content.
+        /// </summary>
+        protected override void UnloadContent() { }
+
+        private void Shoot()
+        {
+            int maxWidth = graphics.GraphicsDevice.Viewport.Width;
+            int maxHeight = graphics.GraphicsDevice.Viewport.Height;
+
+            float panAmmount = posGun.X / maxWidth * 2 - 1;
+
+            if (rand.Next(0, 1) == 0)
+                shot1.Play(1.0f, 0.0f, panAmmount);
+            else
+                shot2.Play(1.0f, 0.0f, panAmmount);
+
+            // True if the player hits the can
+            bool hitTarget = posTarget.Intersects(posCan);
+
+            if (hitTarget)
+            {
+                score++;
+                if (score >= 6)
+                {
+                    gameStatus = GameStatus.Win;
+
+                    // Level is incremented when the user presses a key to continue
+                    return;
+                }
+                else
+                {
+                    NewRound();
+                }
+            }
+
+            ammoCount -= 1;
+            if (ammoCount <= 0)
+                gameStatus = GameStatus.Loss;
+        }
+
+        /// <summary>
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input, and playing audio.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Update(GameTime gameTime)
+        {
+            KeyboardState currentKeyState = Keyboard.GetState();
+            GamePadState currentPadState = GamePad.GetState(PlayerIndex.One);
+            int maxWidth = graphics.GraphicsDevice.Viewport.Width;
+            int maxHeight = graphics.GraphicsDevice.Viewport.Height;
+
+            // Allows the game to exit
+            if (currentPadState.IsButtonDown(Buttons.Back) ||
+                currentKeyState.IsKeyDown(Keys.Escape))
+            {
+                this.Exit();
+            }
+
+            if (gameStatus == GameStatus.Playing)
+            {
+                UpdatePlaying(gameTime, currentKeyState, currentPadState);
+                if (level >= 2)
+                {
+                    UpdateLevel2(gameTime);
+                }
+            }
+            else // Win or loss
+            {
+                UpdatePause(currentPadState);
+            }
+            
+            // Update these for the next call
+            PreviousKeyboardState = currentKeyState;
+            PreviousPadState = currentPadState;
+
+            base.Update(gameTime);
+        }
+
+
+        private void UpdatePlaying(GameTime gameTime, KeyboardState currentKeyState, GamePadState currentPadState)
+        {
+            int maxWidth = graphics.GraphicsDevice.Viewport.Width;
+            int maxHeight = graphics.GraphicsDevice.Viewport.Height;
+
+            double frameTime = gameTime.ElapsedGameTime.TotalMilliseconds;
+            double stickPos = currentPadState.ThumbSticks.Right.X / 15;
+
+            // If the new position is within bounds we allow it
+            float newPos = (float)(stickPos * frameTime + angleGun);
+            if (newPos > -50 && newPos < 50)
+                angleGun = newPos;
+
+            // Limit to 70% of the area to either it's right or left
+            float maxPercentWidth = 0.7f;
+            if (angleGun > 0)
+            { // to the left
+                float variation = posGun.X;
+                float percent = angleGun / 50 * maxPercentWidth;
+                drawGun.Width = (int)(variation * percent);
+                drawGun.X = (int)posGun.X - drawGun.Width;
+            }
+            else
+            { // to the right
+                float variation = maxWidth - posGun.X;
+                float percent = angleGun / 50 * maxPercentWidth;
+                drawGun.Width = (int)(variation * percent);
+                drawGun.X = (int)posGun.X; // -drawGun.Width * -1;
+            }
+
+
+            //drawGun.Width = (int)(maxWidth * 50 / 100 * (angleGun / 100));
+            drawGun.Height = maxHeight * 75 / 100;
+            //drawGun.X = (int)posGun.X - drawGun.Width;
+            drawGun.Y = (int)posGun.Y - drawGun.Height;
+
+            if (angleGun > 0) // To the left
+                posTarget.X = (int)(posGun.X - angleGun / 50 * posGun.X);
+            else // To the right
+                posTarget.X = (int)((maxWidth - posGun.X) * (angleGun / -50) + posGun.X);
+
+            posTarget.Width = 15;
+            posTarget.Height = 15;
+
+            posTarget.Y = posCan.Y + posCan.Height / 2;
+
+            bool F12Pressed = currentKeyState.IsKeyUp(Keys.F12) &&
+                PreviousKeyboardState.IsKeyDown(Keys.F12);
+            bool StartPressed = currentPadState.IsButtonUp(Buttons.Start) &&
+                PreviousPadState.IsButtonDown(Buttons.Start);
+
+            // Allow F12 to reload the game
+            if (F12Pressed || StartPressed)
+            {
+                level = 1;
+                this.Initialize();
+            }
+
+            if (currentPadState.IsButtonDown(Buttons.RightTrigger) && PreviousPadState.IsButtonUp(Buttons.RightTrigger))
+                Shoot();
+
+            if (score == score) // DEBUG: should say (score == 5)
+            {
+                double hueIncrement = gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0;
+                if (hueDirection == Direction.Right)
+                    hueFade += hueIncrement;
+                else
+                    hueFade -= hueIncrement;
+
+                // Reverse the directions at the end of the legal values
+                // We allow 1% margin of error
+                if (hueFade >= 0.99)
+                {
+                    hueFade = 0.99;
+                    hueDirection = Direction.Left;
+                }
+                else if (hueFade <= 0.01)
+                {
+                    hueFade = 0.01;
+                    hueDirection = Direction.Right;
+                }
+
+                //canColor = GameHelper.HSLColor(hueFade, 1.0, 0.5);
+                
+                //     ----------------------            DEBUG      -----------------------------
+                //     ----------------------            DEBUG      -----------------------------
+                //     ----------------------            DEBUG      -----------------------------
+                
+
+                canColor = GameHelper.HSLColor(hueFade, debug_s, debug_l);
+            }
+        }
+
+        float debug_s = 0.5f;
+        float debug_l = 0.5f;
+
+
+        private void UpdateLevel2(GameTime gameTime)
+        {
+            int maxWidth = graphics.GraphicsDevice.Viewport.Width;
+            int maxHeight = graphics.GraphicsDevice.Viewport.Height;
+
+            if (posCan.X < maxWidth * 10 / 100)
+                canDir = Direction.Right;
+            else if (posCan.X > maxWidth * 80 / 100)
+                canDir = Direction.Left;
+
+            if (canDir == Direction.Right)
+                posCan.X += (int)(gameTime.ElapsedGameTime.Milliseconds * maxWidth / 14000.0 * level);
+            else if (canDir == Direction.Left)
+                posCan.X -= (int)(gameTime.ElapsedGameTime.Milliseconds * maxWidth / 14000.0 * level);
+        }
+
+        private void UpdatePause(GamePadState currentPadState)
+        {
+            bool aPress = currentPadState.IsButtonUp(Buttons.A) && PreviousPadState.IsButtonDown(Buttons.A);
+            bool xPress = currentPadState.IsButtonUp(Buttons.X) && PreviousPadState.IsButtonDown(Buttons.X);
+            bool bPress = currentPadState.IsButtonUp(Buttons.B) && PreviousPadState.IsButtonDown(Buttons.B);
+            bool yPress = currentPadState.IsButtonUp(Buttons.Y) && PreviousPadState.IsButtonDown(Buttons.Y);
+            bool startPress = currentPadState.IsButtonUp(Buttons.Start) && PreviousPadState.IsButtonDown(Buttons.Start);
+
+            if (aPress || xPress || bPress || yPress || startPress)
+            {
+                // Only go to the next level if you win
+                if (gameStatus == GameStatus.Win)
+                    level += 1;
+
+                // Start completly over except for loading resources
+                Initialize();
+            }
+            int maxWidth = graphics.GraphicsDevice.Viewport.Width;
+            int maxHeight = graphics.GraphicsDevice.Viewport.Height;
+
+            posWinLose.X = maxWidth * 5 / 100;
+            posWinLose.Y = maxHeight * 5 / 100;
+            posWinLose.Width = maxWidth * 90 / 100;
+            posWinLose.Height = maxHeight * 90 / 100;
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            int maxWidth = graphics.GraphicsDevice.Viewport.Width;
+            int maxHeight = graphics.GraphicsDevice.Viewport.Height;
+
+            // The background color shouldn't ever be seen
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+
+            spriteBatch.Draw(texBg, posBg, Color.White);
+            spriteBatch.Draw(texStand, posStand, Color.White);
+
+            if (canDir == Direction.Left)
+            {
+                spriteBatch.Draw(texCan, posCan, Color.Gray);
+                spriteBatch.Draw(texCan, posCan, canColor);
+            }
+            else
+            {
+                spriteBatch.Draw(texCan, posCan, null, Color.Gray, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                spriteBatch.Draw(texCan, posCan, null, canColor, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+            }
+
+            for (int i = 0; i <= ammoCount; i++)
+            {
+                
+                Rectangle posAmmoTemp = new Rectangle();
+                posAmmoTemp.Width = maxWidth * 3 / 100;
+                posAmmoTemp.Height = maxHeight * 6 / 100;
+                posAmmoTemp.X = i * posAmmoTemp.Width - posAmmoTemp.Width;
+                posAmmoTemp.Y = maxHeight * 85 / 100;
+
+                SpriteEffects effect = i%2 == 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+                spriteBatch.Draw(texAmmo, posAmmoTemp, null, Color.White, 0, Vector2.Zero, effect, 0);
+            }
+
+
+            spriteBatch.Draw(texTarget, posTarget, Color.White);
+
+            // Draw the gun respecting negative widths
+            if (drawGun.Width > 0)
+            {
+                spriteBatch.Draw(texGun, drawGun, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+            }
+            else
+            {
+                Rectangle drawGunBackwords = new Rectangle(drawGun.X, drawGun.Y, drawGun.Width * -1, drawGun.Height);
+                spriteBatch.Draw(texGun, drawGunBackwords, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+            }
+
+            string scoreText = score.ToString() + "/6\nLvl " + level.ToString();
+            Vector2 scorePos = new Vector2(maxWidth * 85 / 100, 15);
+            spriteBatch.DrawString(scoreFont, scoreText, scorePos, Color.SteelBlue);
+
+
+            if (gameStatus == GameStatus.Win)
+                spriteBatch.Draw(texWin, posWinLose, Color.White);
+            else if (gameStatus == GameStatus.Loss)
+                spriteBatch.Draw(texLose, posWinLose, Color.White);
+
+#if DEBUG            
+            string debugInfo = String.Format("Angle: {0}\nGun Width: {1}\nGun Height: {2}\nGun Position: ({3}, {4})\n"
+            + "Target X: {5}\n{6}\nAmmo: {7}\nSat: {8}\nLum: {9}",
+                angleGun, drawGun.Width, drawGun.Height, drawGun.X, drawGun.Y, posTarget.X, gameStatus, ammoCount,
+                debug_s, debug_l);
+
+            spriteBatch.DrawString(debugFont, debugInfo, new Vector2(1, 1), Color.Red);
+#endif
+
+            spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+    }
+}

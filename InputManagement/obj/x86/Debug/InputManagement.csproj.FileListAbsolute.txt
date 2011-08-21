@@ -1,0 +1,6 @@
+C:\Users\User\Documents\My Games\Can Shooter\InputManagement\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\User\Documents\My Games\Can Shooter\InputManagement\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\User\Documents\My Games\Can Shooter\InputManagement\bin\x86\Debug\InputManagement.dll
+C:\Users\User\Documents\My Games\Can Shooter\InputManagement\bin\x86\Debug\InputManagement.pdb
+C:\Users\User\Documents\My Games\Can Shooter\InputManagement\obj\x86\Debug\InputManagement.dll
+C:\Users\User\Documents\My Games\Can Shooter\InputManagement\obj\x86\Debug\InputManagement.pdb

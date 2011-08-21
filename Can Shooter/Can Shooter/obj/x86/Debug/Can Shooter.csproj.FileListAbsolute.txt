@@ -1,0 +1,24 @@
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\bg.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Can.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Stand.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Gun.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Ammo.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Can Shooter.exe
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Can Shooter.pdb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\obj\x86\Debug\Can Shooter.exe
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\obj\x86\Debug\Can Shooter.pdb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Courier New.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Glow.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\shot2.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\shot1.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Segoe UI Mono.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Win-Graphic.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Content\Lose-Graphic.xnb
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Can Shooter.exe.manifest
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\Can Shooter.application
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\obj\x86\Debug\Can Shooter.exe.manifest
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\obj\x86\Debug\Can Shooter.application
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\InputManagement.dll
+C:\Users\User\Documents\My Games\Can Shooter\Can Shooter\Can Shooter\bin\x86\Debug\InputManagement.pdb
